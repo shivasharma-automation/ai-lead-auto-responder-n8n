@@ -1,0 +1,887 @@
+{
+  "name": "AI Lead Auto Responder v1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "8f879d76-cf56-4ea9-bf59-f8df558844af",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -192,
+        -448
+      ],
+      "id": "bd527b68-76c6-40cb-a57a-d41a3564af65",
+      "name": "Webhook",
+      "webhookId": "8f879d76-cf56-4ea9-bf59-f8df558844af"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ICL2VUZrF1ZEHkWOC0W3zTEkZlpeKEL9om7hvFmcaHY",
+          "mode": "list",
+          "cachedResultName": "ai draft ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICL2VUZrF1ZEHkWOC0W3zTEkZlpeKEL9om7hvFmcaHY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICL2VUZrF1ZEHkWOC0W3zTEkZlpeKEL9om7hvFmcaHY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $json.body.email }}",
+            "Name": "={{ $json.body.name }}",
+            "company_name": "={{ $json.company_name }}",
+            "company_website": "={{ $json.company_website }}",
+            "support_team": "={{ $json.support_team }}",
+            "company_email": "={{ $json.company_name }}{{ $json.Company_email }}",
+            "brand_color": "={{ $json.brand_color }}",
+            "logo_url": "={{ $json.logo_url }}",
+            "ai_provider": "={{ $json.ai_provider }}",
+            "ai_model": "={{ $json.ai_model }}",
+            "Problem ": "={{$node[\"Webhook\"].json.body.problem}}",
+            "Status ": "\"Replied\"",
+            "ai_draft": "=\"pending\""
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Problem ",
+              "displayName": "Problem ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status ",
+              "displayName": "Status ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ai_draft",
+              "displayName": "ai_draft",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_name",
+              "displayName": "company_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "support_team",
+              "displayName": "support_team",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_email",
+              "displayName": "company_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_website",
+              "displayName": "company_website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "brand_color",
+              "displayName": "brand_color",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "logo_url",
+              "displayName": "logo_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ai_provider",
+              "displayName": "ai_provider",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ai_model",
+              "displayName": "ai_model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        16,
+        -96
+      ],
+      "id": "f116fece-8304-4846-8d25-74b784b2c631",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "cqdtlNOpDiGwAq7g",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{$node[\"Webhook\"].json.body.email}}",
+        "subject": "Response to your query",
+        "message": "={{$json.ai_draft}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        928,
+        0
+      ],
+      "id": "9d97cb7b-8ec7-4869-abe4-8a96310fe663",
+      "name": "Send a message",
+      "webhookId": "e09f6896-99be-4625-b698-913f6d322c46",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "7GzEn6vGdebGct6q",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b11643ca-6652-434b-a9c3-af2e4a97be31",
+              "name": "company_name",
+              "value": "ABC Solutions",
+              "type": "string"
+            },
+            {
+              "id": "cb7ae9b2-ad78-4779-90a4-6fbef53a57e0",
+              "name": "support_team",
+              "value": "support team",
+              "type": "string"
+            },
+            {
+              "id": "d76cfa1e-f431-4a58-bc74-d1a6027182c0",
+              "name": "Company_email",
+              "value": "support@abc.com",
+              "type": "string"
+            },
+            {
+              "id": "39681bd6-20a4-436d-bd44-f7fc65f33302",
+              "name": "company_website",
+              "value": "https://abc.com",
+              "type": "string"
+            },
+            {
+              "id": "1f8d483b-a5e7-4316-9651-d4a01f87ca1b",
+              "name": "brand_color",
+              "value": "#4F46E5",
+              "type": "string"
+            },
+            {
+              "id": "b41af142-3a2d-4a2c-b30c-4e7f6768caec",
+              "name": "logo_url",
+              "value": "https://abc.com/logo.png",
+              "type": "string"
+            },
+            {
+              "id": "c31976c2-04ad-448b-9e34-6f5f08ee05e4",
+              "name": "ai_provider",
+              "value": "Groq",
+              "type": "string"
+            },
+            {
+              "id": "52e9080d-6302-4dad-a24f-f8ea28a7a797",
+              "name": "ai_model",
+              "value": "llama-3.1-8b-instant",
+              "type": "string"
+            },
+            {
+              "id": "9dc26b2f-1ce9-489d-a9b4-8a7b4dde4a01",
+              "name": "api_key ",
+              "value": "gsk_xxxxxxxxx",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -32,
+        -320
+      ],
+      "id": "eb35307b-0b34-48b6-86af-7ddad9b39b99",
+      "name": "EDIT HERE(CLIENTS SETTINGS)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer"{{GROQ_API_KEY}}"
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-8b-instant\",\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"Yeh AI ka generated draft hai\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        -416
+      ],
+      "id": "0e97787c-cfde-423e-b84a-d4558eef6180",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1ICL2VUZrF1ZEHkWOC0W3zTEkZlpeKEL9om7hvFmcaHY",
+          "mode": "list",
+          "cachedResultName": "ai draft ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICL2VUZrF1ZEHkWOC0W3zTEkZlpeKEL9om7hvFmcaHY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ICL2VUZrF1ZEHkWOC0W3zTEkZlpeKEL9om7hvFmcaHY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{$node[\"Webhook\"].json.body.email}}",
+            "Name": "={{$node[\"Webhook\"].json.body.name}}",
+            "Problem ": "={{$node[\"Webhook\"].json.body.problem}}",
+            "Status ": "\"Replied\"",
+            "ai_draft": "={{ \n`Hi,\n\n${($node[\"Edit Fields\"].json.ai_draft || \"Your request is being processed.\").trim()}\n\nIf you need further assistance, feel free to reply to this message.\n\nRegards,  \nCustomer Support`\n}}",
+            "company_name": "={{ $('EDIT HERE(CLIENTS SETTINGS)').item.json.company_name }}",
+            "ai_model": "={{ $('EDIT HERE(CLIENTS SETTINGS)').item.json.ai_model }}",
+            "ai_provider": "={{ $('EDIT HERE(CLIENTS SETTINGS)').item.json.ai_provider }}",
+            "logo_url": "={{ $('EDIT HERE(CLIENTS SETTINGS)').item.json.logo_url }}",
+            "brand_color": "={{ $('EDIT HERE(CLIENTS SETTINGS)').item.json.brand_color }}",
+            "company_website": "={{ $('EDIT HERE(CLIENTS SETTINGS)').item.json.company_website }}",
+            "company_email": "={{ $('EDIT HERE(CLIENTS SETTINGS)').item.json.Company_email }}",
+            "support_team": "={{ $('EDIT HERE(CLIENTS SETTINGS)').item.json.support_team }}"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Problem ",
+              "displayName": "Problem ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status ",
+              "displayName": "Status ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ai_draft",
+              "displayName": "ai_draft",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_name",
+              "displayName": "company_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "support_team",
+              "displayName": "support_team",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_email",
+              "displayName": "company_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_website",
+              "displayName": "company_website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "brand_color",
+              "displayName": "brand_color",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "logo_url",
+              "displayName": "logo_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ai_provider",
+              "displayName": "ai_provider",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ai_model",
+              "displayName": "ai_model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        848,
+        -208
+      ],
+      "id": "754169e0-91f3-4a53-9979-05eda0133ca2",
+      "name": "Update row in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "cqdtlNOpDiGwAq7g",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$node[\"EDIT HERE(CLIENTS SETTINGS)\"].json.ai_provider}}",
+                    "rightValue": "Groq",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "876e0fcc-3fd9-4e1a-942b-81bfd1d2bad6"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Groq"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "96071807-4796-44b2-bb2c-271542e042cf",
+                    "leftValue": "={{$node[\"EDIT HERE(CLIENTS SETTINGS)\"].json.ai_provider}}",
+                    "rightValue": "OpenAI",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "OpenAI"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "f0e1fe08-25f7-4b6a-b07c-0ab8bc9839dd",
+                    "leftValue": "={{$node[\"EDIT HERE(CLIENTS SETTINGS)\"].json.ai_provider}}",
+                    "rightValue": "Claude",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Claude"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        -272
+      ],
+      "id": "b30f7bc7-22df-4bc8-b953-4e02d6b395f2",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$node[\"EDIT HERE(CLIENTS SETTINGS)\"].json.api_key}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"{{$node['EDIT HERE(CLIENTS SETTINGS)'].json.ai_model}}\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a professional customer support assistant.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Customer Name: {{$node['Webhook'].json.body.name}}\\nEmail: {{$node['Webhook'].json.body.email}}\\nProblem: {{$node['Webhook'].json.body.problem}}\"\n    }\n  ],\n  \"temperature\": 0.7\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        -256
+      ],
+      "id": "170a5213-9644-4367-b387-6a70c064abe5",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{$node[\"EDIT HERE(CLIENTS SETTINGS)\"].json.api_key}}"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"{{$node['EDIT HERE(CLIENTS SETTINGS)'].json.ai_model}}\",\n  \"max_tokens\": 1024,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Customer Name: {{$node['Webhook'].json.body.name}}\\nEmail: {{$node['Webhook'].json.body.email}}\\nProblem: {{$node['Webhook'].json.body.problem}}\\n\\nGenerate a professional customer support email.\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        -112
+      ],
+      "id": "23e1f15f-c180-489d-838d-179acac221e3",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7f32396d-99d7-49e8-85aa-e190a0d47d13",
+              "name": "ai_draft",
+              "value": "={{$json.choices[0].message.content}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        576,
+        -416
+      ],
+      "id": "04cf93a3-721e-4e38-bc82-0519b0d68d5e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2c3a6f29-0205-4135-bcff-6c45a08560b5",
+              "name": "ai_draft",
+              "value": "={{$json.choices[0].message.content}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        576,
+        -256
+      ],
+      "id": "cf466ec3-b0d3-413d-a8bd-91fccbf8affa",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "719d8803-ab88-4235-85eb-bb8a2c6e09fd",
+              "name": "ai_draft",
+              "value": "={{$json.content[0].text}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        576,
+        -112
+      ],
+      "id": "08fc586b-8add-453e-898c-eac01ff3aebf",
+      "name": "Edit Fields2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "EDIT HERE(CLIENTS SETTINGS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    },
+    "EDIT HERE(CLIENTS SETTINGS)": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "dd72024a-fcd1-49a6-9445-94960294704a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e36b7be5b3a8bf583d0e5da8b64960d123a9c1ebc1d993f76c42d35ab343f94d"
+  },
+  "nodeGroups": [],
+  "id": "MSxq9kO5BmDBhR2C",
+  "tags": []
+}
